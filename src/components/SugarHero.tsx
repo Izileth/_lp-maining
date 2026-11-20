@@ -1,4 +1,3 @@
-// Hero.tsx
 import { useState } from "react";
 
 type Periodo = "Manhã" | "Tarde" | "Noite";
@@ -23,7 +22,7 @@ export default function Hero() {
     const [menuAberto, setMenuAberto] = useState<boolean>(false);
 
     return (
-        <section className="relative isolate min-h-[640px] h-screen w-full overflow-hidden bg-[#e3231f] font-sans text-white">
+        <section className="relative isolate h-svh min-h-[640px] w-full overflow-hidden bg-sea font-sans text-milk">
             {/* Imagem principal */}
             <img
                 key={periodo}
@@ -32,14 +31,14 @@ export default function Hero() {
                 className="absolute inset-0 -z-30 h-full w-full object-cover object-[65%_center] transition-opacity duration-500 md:object-[75%_center]"
             />
 
-            {/* Tom vermelho sobre a imagem (efeito da referência) */}
-            <div className="absolute inset-0 -z-20 bg-[#e3231f]/30 mix-blend-multiply" />
+            {/* Tom índigo sobre a imagem */}
+            <div className="absolute inset-0 -z-20 bg-sea/60 mix-blend-multiply" />
 
             {/* Vinheta nas bordas */}
-            <div className="absolute inset-0 -z-20 bg-[radial-gradient(ellipse_at_60%_45%,transparent_35%,rgba(60,0,0,0.45)_100%)]" />
+            <div className="absolute inset-0 -z-20 bg-[radial-gradient(ellipse_at_60%_45%,transparent_35%,rgba(10,5,45,0.55)_100%)]" />
 
-            {/* Degradê lateral para legibilidade do texto no mobile/tablet */}
-            <div className="absolute inset-0 -z-20 bg-gradient-to-r from-[#c91d1a]/70 via-transparent to-transparent md:from-[#c91d1a]/30" />
+            {/* Degradê lateral para legibilidade do texto */}
+            <div className="absolute inset-0 -z-20 bg-linear-to-r from-sea/85 via-sea/20 to-transparent md:from-sea/60" />
 
             {/* Granulado */}
             <div
@@ -53,22 +52,22 @@ export default function Hero() {
                 <a
                     href="#"
                     aria-label="Sabora"
-                    className="grid h-7 w-7 place-items-center rounded-full bg-white sm:h-8 sm:w-8"
+                    className="grid h-7 w-7 place-items-center rounded-full bg-milk sm:h-8 sm:w-8"
                 >
-                    <svg viewBox="0 0 24 24" className="h-4 w-4 text-[#e3231f]" fill="currentColor">
+                    <svg viewBox="0 0 24 24" className="h-4 w-4 text-sea" fill="currentColor">
                         <path d="M18.5 3c-6 .3-11 3.8-11 9.2 0 2.2 1 3.8 2.6 4.6-.2-1.8.4-3.6 1.8-5 1.2-1.2 2.6-1.6 3.9-1.2-1.4.6-2.3 1.7-2.6 3.1-.4 1.8.5 3.5 2.2 4.3C12 20.5 8.5 21 6 19.2c-1.4-1-2.2-2.5-2.2-4.2" />
                     </svg>
                 </a>
 
-                {/* Nav central (desktop/tablet) */}
+                {/* Nav central (tablet/desktop) */}
                 <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-1 md:flex">
                     {LINKS.map((l) => (
                         <button
                             key={l}
                             onClick={() => setAtivoNav(l)}
                             className={`rounded-full px-4 py-2 text-[13px] transition ${ativoNav === l
-                                    ? "bg-white font-medium text-neutral-900"
-                                    : "bg-black/20 text-white/90 backdrop-blur-sm hover:bg-black/30"
+                                    ? "bg-milk font-semibold text-sea"
+                                    : "bg-sea/40 text-milk/90 backdrop-blur-sm hover:bg-sea/60"
                                 }`}
                         >
                             {l}
@@ -80,13 +79,13 @@ export default function Hero() {
                 <div className="flex items-center gap-2">
                     <a
                         href="#"
-                        className="hidden rounded-full bg-black/15 px-4 py-2 text-[13px] text-white/90 backdrop-blur-sm transition hover:bg-black/25 sm:inline-block"
+                        className="hidden rounded-full bg-sea/40 px-4 py-2 text-[13px] text-milk/90 backdrop-blur-sm transition hover:bg-sea/60 sm:inline-block"
                     >
                         Quero receber novidades
                     </a>
                     <a
                         href="#"
-                        className="rounded-full bg-white px-5 py-2 text-[13px] font-medium text-neutral-900 transition hover:bg-white/90 sm:px-8 sm:py-2.5"
+                        className="rounded-full bg-milk px-5 py-2 text-[13px] font-semibold text-sea transition hover:bg-milk/90 sm:px-8 sm:py-2.5"
                     >
                         Pedir agora
                     </a>
@@ -94,12 +93,12 @@ export default function Hero() {
                     <button
                         onClick={() => setMenuAberto((v) => !v)}
                         aria-label="Abrir menu"
-                        className="ml-1 grid h-9 w-9 place-items-center rounded-full bg-black/20 backdrop-blur-sm md:hidden"
+                        className="ml-1 grid h-9 w-9 place-items-center rounded-full bg-sea/40 backdrop-blur-sm md:hidden"
                     >
                         <span className="relative block h-3 w-4">
-                            <span className={`absolute left-0 h-[1.5px] w-4 bg-white transition ${menuAberto ? "top-1.5 rotate-45" : "top-0"}`} />
-                            <span className={`absolute left-0 top-1.5 h-[1.5px] w-4 bg-white transition ${menuAberto ? "opacity-0" : ""}`} />
-                            <span className={`absolute left-0 h-[1.5px] w-4 bg-white transition ${menuAberto ? "top-1.5 -rotate-45" : "top-3"}`} />
+                            <span className={`absolute left-0 h-[1.5px] w-4 bg-milk transition ${menuAberto ? "top-1.5 rotate-45" : "top-0"}`} />
+                            <span className={`absolute left-0 top-1.5 h-[1.5px] w-4 bg-milk transition ${menuAberto ? "opacity-0" : ""}`} />
+                            <span className={`absolute left-0 h-[1.5px] w-4 bg-milk transition ${menuAberto ? "top-1.5 -rotate-45" : "top-3"}`} />
                         </span>
                     </button>
                 </div>
@@ -107,7 +106,7 @@ export default function Hero() {
 
             {/* Menu mobile */}
             {menuAberto && (
-                <div className="absolute inset-x-5 top-20 z-30 flex flex-col gap-1 rounded-3xl bg-black/40 p-3 backdrop-blur-md md:hidden">
+                <div className="absolute inset-x-5 top-20 z-30 flex flex-col gap-1 rounded-3xl bg-sea/70 p-3 backdrop-blur-md md:hidden">
                     {LINKS.map((l) => (
                         <button
                             key={l}
@@ -115,13 +114,13 @@ export default function Hero() {
                                 setAtivoNav(l);
                                 setMenuAberto(false);
                             }}
-                            className={`rounded-2xl px-4 py-3 text-left text-sm ${ativoNav === l ? "bg-white text-neutral-900" : "text-white/90"
+                            className={`rounded-2xl px-4 py-3 text-left text-sm ${ativoNav === l ? "bg-milk font-semibold text-sea" : "text-milk/90"
                                 }`}
                         >
                             {l}
                         </button>
                     ))}
-                    <a href="#" className="rounded-2xl px-4 py-3 text-sm text-white/90 sm:hidden">
+                    <a href="#" className="rounded-2xl px-4 py-3 text-sm text-milk/90 sm:hidden">
                         Quero receber novidades
                     </a>
                 </div>
@@ -129,22 +128,22 @@ export default function Hero() {
 
             {/* ───────── Conteúdo ───────── */}
             <div className="relative z-10 flex h-full items-center px-5 sm:px-8 lg:px-[104px]">
-                <div className="mt-24 max-w-[460px] sm:mt-16 lg:mt-24">
+                <div className="mt-24 max-w-[640px] sm:mt-16 lg:mt-24">
                     {/* Badge */}
-                    <div className="mb-5 inline-flex items-center gap-2 rounded-full bg-black/15 py-1 pl-1 pr-3 backdrop-blur-sm">
-                        <span className="rounded-full bg-white px-2.5 py-[3px] text-[11px] font-medium text-[#e3231f]">
+                    <div className="mb-5 inline-flex items-center gap-2 rounded-full bg-sea/40 py-1 pl-1 pr-3 backdrop-blur-sm">
+                        <span className="rounded-full bg-milk px-2.5 py-[3px] text-[11px] font-semibold text-sea">
                             Novo
                         </span>
-                        <span className="text-[11px] text-white/80">Menu de verão já disponível</span>
+                        <span className="text-[11px] text-milk/80">Menu de verão já disponível</span>
                     </div>
 
-                    <h1 className="text-[40px] font-light leading-[1.05] tracking-[-0.02em] sm:text-5xl lg:text-[52px]">
-                        Descubra o seu
-                        <br />
-                        Banquete Pessoal
+                    {/* Título: sans pesada + serifada itálica, como "sea" e "milk" */}
+                    <h1 className="text-[40px] leading-[0.98] tracking-[-0.03em] sm:text-6xl lg:text-[72px]">
+                        <span className="block font-heavy">Descubra o seu</span>
+                        <span className="block font-script font-black italic">Banquete Pessoal</span>
                     </h1>
 
-                    <p className="mt-4 max-w-[300px] text-[13px] leading-[1.45] text-white/60 sm:max-w-[330px] sm:text-sm">
+                    <p className="mt-5 max-w-[320px] text-[13px] leading-[1.5] text-milk/70 sm:max-w-[360px] sm:text-sm">
                         Com ingredientes frescos e receitas feitas com carinho, a Sabora ajuda você a
                         aproveitar cada refeição do café da manhã à sobremesa.
                     </p>
@@ -158,8 +157,8 @@ export default function Hero() {
                         key={p}
                         onClick={() => setPeriodo(p)}
                         className={`rounded-full px-5 py-2 text-[13px] transition md:min-w-[50px] ${periodo === p
-                                ? "bg-white font-medium text-neutral-900"
-                                : "bg-black/20 text-white/70 backdrop-blur-sm hover:bg-black/30"
+                                ? "bg-milk font-semibold text-sea"
+                                : "bg-sea/40 text-milk/70 backdrop-blur-sm hover:bg-sea/60"
                             }`}
                     >
                         {p}

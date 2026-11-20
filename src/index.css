@@ -1,1 +1,22 @@
+/* As fontes precisam vir antes do import do Tailwind */
+@import url("https://fonts.googleapis.com/css2?family=Archivo+Black&family=Manrope:wght@300;400;500;600&family=Playfair+Display:ital,wght@1,800;1,900&display=swap");
 @import "tailwindcss";
+
+@theme {
+  /* Paleta */
+  --color-milk: #f6f7fd;
+  --color-sea: #281c7c;
+
+  /* Alternativa com os hex escritos na imagem (verdes):
+  --color-milk: #d2db76;
+  --color-sea: #2d371d; */
+
+  /* Tipografia */
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-script: "Playfair Display", ui-serif, Georgia, serif;
+  --font-heavy: "Archivo Black", "Arial Black", sans-serif;
+}
+
+html {
+  background: var(--color-sea);
+}
