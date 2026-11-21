@@ -1,22 +1,67 @@
-/* As fontes precisam vir antes do import do Tailwind */
-@import url("https://fonts.googleapis.com/css2?family=Archivo+Black&family=Manrope:wght@300;400;500;600&family=Playfair+Display:ital,wght@1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Archivo+Black&family=Manrope:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@1,800;1,900&display=swap");
 @import "tailwindcss";
 
 @theme {
-  /* Paleta */
   --color-milk: #f6f7fd;
   --color-sea: #281c7c;
 
-  /* Alternativa com os hex escritos na imagem (verdes):
-  --color-milk: #d2db76;
-  --color-sea: #2d371d; */
-
-  /* Tipografia */
   --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
   --font-script: "Playfair Display", ui-serif, Georgia, serif;
   --font-heavy: "Archivo Black", "Arial Black", sans-serif;
+
+  --ease-slide: cubic-bezier(0.77, 0, 0.18, 1);
+
+  --animate-marquee: marquee 30s linear infinite;
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
 }
 
-html {
-  background: var(--color-sea);
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  overflow: hidden;
+  overscroll-behavior: none;
+  background: var(--color-milk);
+  color: var(--color-sea);
+  font-family: var(--font-sans);
+}
+
+/* Entrada dos elementos quando o slide fica ativo */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.8s var(--ease-slide);
+  transition-delay: 0ms;
+}
+[data-active="true"] .reveal {
+  opacity: 1;
+  transform: none;
+  transition-delay: calc(var(--d, 0) * 1ms + 450ms);
+}
+
+/* Zoom suave nas imagens ao entrar */
+.kenburns {
+  transform: scale(1.12);
+  transition: transform 1600ms var(--ease-slide);
+}
+[data-active="true"] .kenburns {
+  transform: scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .kenburns {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
