@@ -3,17 +3,10 @@ export const MARCA = "MILKSEA";
 // Data do drop (a contagem regressiva usa isso)
 export const DROP_DATE = new Date("2026-12-04T22:00:00-03:00");
 
-export type TemaNome = "claro" | "escuro";
+export type Tema = "claro" | "escuro";
 
-// Cores que o GSAP interpola no header, paginação e ticker.
-// (formato rgb com vírgulas, necessário para a interpolação)
-export const PALETA: Record<TemaNome, { ink: string; paper: string }> = {
-  claro: { ink: "rgb(40, 28, 124)", paper: "rgb(246, 247, 253)" },
-  escuro: { ink: "rgb(246, 247, 253)", paper: "rgb(40, 28, 124)" },
-};
-
-// Ordem = ordem dos slides em App.tsx
-export const SECOES: { rotulo: string; tema: TemaNome }[] = [
+// Ordem = ordem dos slides. "tema" controla a cor do header/pontos.
+export const SECOES: { rotulo: string; tema: Tema }[] = [
   { rotulo: "Início", tema: "claro" },
   { rotulo: "Coleção", tema: "claro" },
   { rotulo: "Lookbook", tema: "claro" },
@@ -21,10 +14,14 @@ export const SECOES: { rotulo: string; tema: TemaNome }[] = [
   { rotulo: "Lojas", tema: "claro" },
 ];
 
-// 👇 Hero: cada aba tem imagem, selo, texto, CTA e destino (índice do slide)
-export const HERO = [
-  {
-    aba: "Coleção",
+export type Aba = "Coleção" | "Lookbook" | "Drop";
+
+// 👇 Hero: uma imagem por aba
+export const HERO: Record<
+  Aba,
+  { imagem: string; selo: string; texto: string; cta: string; destino: number }
+> = {
+  Coleção: {
     imagem: "/img/hero-colecao.jpg",
     selo: "Coleção Inverno 26 disponível",
     texto:
@@ -32,8 +29,7 @@ export const HERO = [
     cta: "Ver a coleção",
     destino: 1,
   },
-  {
-    aba: "Lookbook",
+  Lookbook: {
     imagem: "/img/hero-lookbook.jpg",
     selo: "Lookbook 26 no ar",
     texto:
@@ -41,8 +37,7 @@ export const HERO = [
     cta: "Ver o lookbook",
     destino: 2,
   },
-  {
-    aba: "Drop",
+  Drop: {
     imagem: "/img/hero-drop.jpg",
     selo: "Drop 02 · Sexta, 22h",
     texto:
@@ -50,7 +45,7 @@ export const HERO = [
     cta: "Entrar no drop",
     destino: 3,
   },
-];
+};
 
 export const FRASES = [
   "Coleção Inverno 26",
@@ -63,10 +58,30 @@ export const FRASES = [
 
 // 👇 Coleção
 export const PRODUTOS = [
-  { nome: "Jaqueta Boxy Nylon", preco: "R$ 589", tag: "Novo", imagem: "/img/produto-1.jpg" },
-  { nome: "Moletom Heavy Cinza", preco: "R$ 349", tag: "Best-seller", imagem: "/img/produto-2.jpg" },
-  { nome: "Calça Cargo Wide", preco: "R$ 429", tag: "", imagem: "/img/produto-3.jpg" },
-  { nome: "Camiseta Oversized", preco: "R$ 189", tag: "Novo", imagem: "/img/produto-4.jpg" },
+  {
+    nome: "Jaqueta Boxy Nylon",
+    preco: "R$ 589",
+    tag: "Novo",
+    imagem: "/img/produto-1.jpg",
+  },
+  {
+    nome: "Moletom Heavy Cinza",
+    preco: "R$ 349",
+    tag: "Best-seller",
+    imagem: "/img/produto-2.jpg",
+  },
+  {
+    nome: "Calça Cargo Wide",
+    preco: "R$ 429",
+    tag: "",
+    imagem: "/img/produto-3.jpg",
+  },
+  {
+    nome: "Camiseta Oversized",
+    preco: "R$ 189",
+    tag: "Novo",
+    imagem: "/img/produto-4.jpg",
+  },
 ];
 
 // 👇 Lookbook
@@ -80,13 +95,24 @@ export const LOOKS = [
 export const DROP_IMAGEM = "/img/drop.jpg";
 
 export const LOJAS = [
-  { cidade: "São Paulo", endereco: "R. Augusta, 1200 · Consolação", horario: "Seg–Sáb · 11h–21h" },
-  { cidade: "Rio de Janeiro", endereco: "R. Dias Ferreira, 45 · Leblon", horario: "Seg–Sáb · 11h–20h" },
-  { cidade: "Belo Horizonte", endereco: "Av. Cristóvão Colombo, 300 · Savassi", horario: "Seg–Sáb · 11h–20h" },
-  { cidade: "Curitiba", endereco: "R. Mateus Leme, 880 · Centro Cívico", horario: "Ter–Sáb · 12h–20h" },
+  {
+    cidade: "São Paulo",
+    endereco: "R. Augusta, 1200 · Consolação",
+    horario: "Seg–Sáb · 11h–21h",
+  },
+  {
+    cidade: "Rio de Janeiro",
+    endereco: "R. Dias Ferreira, 45 · Leblon",
+    horario: "Seg–Sáb · 11h–20h",
+  },
+  {
+    cidade: "Belo Horizonte",
+    endereco: "Av. Cristóvão Colombo, 300 · Savassi",
+    horario: "Seg–Sáb · 11h–20h",
+  },
+  {
+    cidade: "Curitiba",
+    endereco: "R. Mateus Leme, 880 · Centro Cívico",
+    horario: "Ter–Sáb · 12h–20h",
+  },
 ];
-
-
-export type Tema = "claro" | "escuro";
-
-export type Aba = "Coleção" | "Lookbook" | "Drop";
