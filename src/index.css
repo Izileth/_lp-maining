@@ -8,15 +8,16 @@
   --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
   --font-script: "Playfair Display", ui-serif, Georgia, serif;
   --font-heavy: "Archivo Black", "Arial Black", sans-serif;
+}
 
-  --ease-slide: cubic-bezier(0.77, 0, 0.18, 1);
-
-  --animate-marquee: marquee 30s linear infinite;
-  @keyframes marquee {
-    to {
-      transform: translateX(-50%);
-    }
-  }
+/*
+  Variáveis de "cromo" (header, paginação, ticker).
+  O GSAP interpola essas duas cores a cada troca de slide,
+  então o formato precisa ser rgb(r, g, b) com vírgulas.
+*/
+:root {
+  --ink: rgb(40, 28, 124);
+  --paper: rgb(246, 247, 253);
 }
 
 html,
@@ -28,40 +29,72 @@ body,
 body {
   overflow: hidden;
   overscroll-behavior: none;
-  background: var(--color-milk);
-  color: var(--color-sea);
+  background: var(--paper);
+  color: var(--ink);
   font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Entrada dos elementos quando o slide fica ativo */
-.reveal {
-  opacity: 0;
-  transform: translateY(28px);
+/* Foco visível em todo o site */
+:where(a, button, input):focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+/* ── Utilitários ligados às variáveis ── */
+.mk-ink {
+  color: var(--ink);
+}
+.mk-paper {
+  background-color: var(--paper);
+}
+.mk-solid {
+  background-color: var(--ink);
+  color: var(--paper);
+}
+.mk-pill {
+  background-color: color-mix(in srgb, var(--ink) 9%, transparent);
+  color: color-mix(in srgb, var(--ink) 88%, transparent);
   transition:
-    opacity 0.7s ease,
-    transform 0.8s var(--ease-slide);
-  transition-delay: 0ms;
+    background-color 0.4s,
+    color 0.4s;
 }
-[data-active="true"] .reveal {
-  opacity: 1;
-  transform: none;
-  transition-delay: calc(var(--d, 0) * 1ms + 450ms);
+.mk-pill:hover {
+  background-color: color-mix(in srgb, var(--ink) 16%, transparent);
 }
-
-/* Zoom suave nas imagens ao entrar */
-.kenburns {
-  transform: scale(1.12);
-  transition: transform 1600ms var(--ease-slide);
-}
-[data-active="true"] .kenburns {
-  transform: scale(1);
+.mk-press:active {
+  opacity: 0.82;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .reveal,
-  .kenburns {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
+/* Pílulas do menu: a ativa fica transparente porque o indicador (GSAP) desliza por baixo */
+.mk-nav-btn {
+  background-color: color-mix(in srgb, var(--ink) 9%, transparent);
+  color: color-mix(in srgb, var(--ink) 88%, transparent);
+  transition:
+    background-color 0.5s,
+    color 0.5s;
+}
+.mk-nav-btn:hover {
+  background-color: color-mix(in srgb, var(--ink) 16%, transparent);
+}
+.mk-nav-btn[aria-current="true"] {
+  background-color: transparent;
+  color: var(--paper);
+  font-weight: 600;
+}
+
+.mk-menu-item[aria-current="true"] {
+  background-color: var(--ink);
+  color: var(--paper);
+  font-weight: 600;
+}
+
+/*
+  Máscaras criadas pelo SplitText (linesClass + "-mask").
+  O respiro evita cortar acentos, descendentes e a ponta dos itálicos,
+  e as margens negativas mantêm o layout idêntico.
+*/
+.mk-line-mask {
+  padding: 0.08em 0.14em;
+  margin: -0.08em -0.14em;
 }
