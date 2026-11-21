@@ -1,16 +1,39 @@
+// Hero.tsx
 import { useState } from "react";
 
-type Periodo = "Manhã" | "Tarde" | "Noite";
+const MARCA = "MILKSEA";
 
-// 👇 Troque pelos caminhos das suas imagens (uma por aba lateral)
-const IMAGENS: Record<Periodo, string> = {
-    Manhã: "/img/manha.jpg",
-    Tarde: "/img/tarde.jpg",
-    Noite: "/img/noite.jpg",
+type Aba = "Coleção" | "Lookbook" | "Drop";
+
+type Conteudo = {
+    imagem: string; // 👇 troque pelos caminhos das suas imagens
+    selo: string;
+    texto: string;
 };
 
-const LINKS = ["Início", "Cardápio", "Lojas"] as const;
-const PERIODOS = Object.keys(IMAGENS) as Periodo[];
+const CONTEUDO: Record<Aba, Conteudo> = {
+    Coleção: {
+        imagem: "/img/colecao.jpg",
+        selo: "Coleção Inverno 26 já disponível",
+        texto:
+            "Cortes oversized, tecidos pesados e acabamento sob medida. Peças pensadas para durar mais que a estação.",
+    },
+    Lookbook: {
+        imagem: "/img/lookbook.jpg",
+        selo: "Lookbook 26 no ar",
+        texto:
+            "Combinações feitas na rua, com gente de verdade. Veja como a coleção ganha vida fora do estúdio.",
+    },
+    Drop: {
+        imagem: "/img/drop.jpg",
+        selo: "Drop 02 · Sexta, 22h",
+        texto:
+            "Edição limitada, poucas unidades por modelo. Entre na lista para ter acesso antes de todo mundo.",
+    },
+};
+
+const LINKS = ["Início", "Coleção", "Lojas"] as const;
+const ABAS = Object.keys(CONTEUDO) as Aba[];
 
 // Granulado (noise) em SVG inline
 const GRAIN =
@@ -18,16 +41,18 @@ const GRAIN =
 
 export default function Hero() {
     const [ativoNav, setAtivoNav] = useState<string>(LINKS[0]);
-    const [periodo, setPeriodo] = useState<Periodo>("Manhã");
+    const [aba, setAba] = useState<Aba>("Coleção");
     const [menuAberto, setMenuAberto] = useState<boolean>(false);
+
+    const atual = CONTEUDO[aba];
 
     return (
         <section className="relative isolate h-svh min-h-[640px] w-full overflow-hidden bg-sea font-sans text-milk">
             {/* Imagem principal */}
             <img
-                key={periodo}
-                src={IMAGENS[periodo]}
-                alt="Destaque Sabora"
+                key={aba}
+                src={atual.imagem}
+                alt={`${MARCA} · ${aba}`}
                 className="absolute inset-0 -z-30 h-full w-full object-cover object-[65%_center] transition-opacity duration-500 md:object-[75%_center]"
             />
 
@@ -49,14 +74,11 @@ export default function Hero() {
             {/* ───────── Header ───────── */}
             <header className="absolute inset-x-0 top-0 z-20 flex items-center justify-between px-5 pt-6 sm:px-8 lg:px-[104px] lg:pt-[20px]">
                 {/* Logo */}
-                <a
-                    href="#"
-                    aria-label="Sabora"
-                    className="grid h-7 w-7 place-items-center rounded-full bg-milk sm:h-8 sm:w-8"
-                >
-                    <svg viewBox="0 0 24 24" className="h-4 w-4 text-sea" fill="currentColor">
-                        <path d="M18.5 3c-6 .3-11 3.8-11 9.2 0 2.2 1 3.8 2.6 4.6-.2-1.8.4-3.6 1.8-5 1.2-1.2 2.6-1.6 3.9-1.2-1.4.6-2.3 1.7-2.6 3.1-.4 1.8.5 3.5 2.2 4.3C12 20.5 8.5 21 6 19.2c-1.4-1-2.2-2.5-2.2-4.2" />
-                    </svg>
+                <a href="#" aria-label={MARCA} className="flex items-center gap-2">
+                    <span className="grid h-8 w-8 place-items-center rounded-full bg-milk font-script text-lg font-black italic leading-none text-sea">
+                        m
+                    </span>
+                    <span className="hidden font-heavy text-sm tracking-tight lg:inline">{MARCA}</span>
                 </a>
 
                 {/* Nav central (tablet/desktop) */}
@@ -81,18 +103,19 @@ export default function Hero() {
                         href="#"
                         className="hidden rounded-full bg-sea/40 px-4 py-2 text-[13px] text-milk/90 backdrop-blur-sm transition hover:bg-sea/60 sm:inline-block"
                     >
-                        Quero receber novidades
+                        Entrar na lista do drop
                     </a>
                     <a
                         href="#"
                         className="rounded-full bg-milk px-5 py-2 text-[13px] font-semibold text-sea transition hover:bg-milk/90 sm:px-8 sm:py-2.5"
                     >
-                        Pedir agora
+                        Comprar
                     </a>
                     {/* Botão menu mobile */}
                     <button
                         onClick={() => setMenuAberto((v) => !v)}
                         aria-label="Abrir menu"
+                        aria-expanded={menuAberto}
                         className="ml-1 grid h-9 w-9 place-items-center rounded-full bg-sea/40 backdrop-blur-sm md:hidden"
                     >
                         <span className="relative block h-3 w-4">
@@ -121,7 +144,7 @@ export default function Hero() {
                         </button>
                     ))}
                     <a href="#" className="rounded-2xl px-4 py-3 text-sm text-milk/90 sm:hidden">
-                        Quero receber novidades
+                        Entrar na lista do drop
                     </a>
                 </div>
             )}
@@ -129,39 +152,48 @@ export default function Hero() {
             {/* ───────── Conteúdo ───────── */}
             <div className="relative z-10 flex h-full items-center px-5 sm:px-8 lg:px-[104px]">
                 <div className="mt-24 max-w-[640px] sm:mt-16 lg:mt-24">
-                    {/* Badge */}
+                    {/* Selo */}
                     <div className="mb-5 inline-flex items-center gap-2 rounded-full bg-sea/40 py-1 pl-1 pr-3 backdrop-blur-sm">
                         <span className="rounded-full bg-milk px-2.5 py-[3px] text-[11px] font-semibold text-sea">
                             Novo
                         </span>
-                        <span className="text-[11px] text-milk/80">Menu de verão já disponível</span>
+                        <span className="text-[11px] text-milk/80">{atual.selo}</span>
                     </div>
 
-                    {/* Título: sans pesada + serifada itálica, como "sea" e "milk" */}
-                    <h1 className="text-[40px] leading-[0.98] tracking-[-0.03em] sm:text-6xl lg:text-[72px]">
-                        <span className="block font-heavy">Descubra o seu</span>
-                        <span className="block font-script font-black italic">Banquete Pessoal</span>
+                    {/* Título: sans pesada + serifada itálica */}
+                    <h1 className="text-[44px] leading-[0.98] tracking-[-0.03em] sm:text-6xl lg:text-[76px]">
+                        <span className="block font-heavy uppercase">Vista a sua</span>
+                        <span className="block font-script font-black italic">Própria Rua</span>
                     </h1>
 
-                    <p className="mt-5 max-w-[320px] text-[13px] leading-[1.5] text-milk/70 sm:max-w-[360px] sm:text-sm">
-                        Com ingredientes frescos e receitas feitas com carinho, a Sabora ajuda você a
-                        aproveitar cada refeição do café da manhã à sobremesa.
+                    <p className="mt-5 max-w-[320px] text-[13px] leading-[1.5] text-milk/70 sm:max-w-[380px] sm:text-sm">
+                        {atual.texto}
                     </p>
+
+                    {/* CTA extra */}
+                    <a
+                        href="#"
+                        className="mt-7 inline-flex items-center gap-2 rounded-full bg-milk px-6 py-3 text-[13px] font-semibold text-sea transition hover:gap-3 hover:bg-milk/90"
+                    >
+                        Ver {aba === "Drop" ? "o drop" : aba === "Lookbook" ? "o lookbook" : "a coleção"}
+                        <span aria-hidden>→</span>
+                    </a>
                 </div>
             </div>
 
             {/* ───────── Seletor lateral ───────── */}
             <div className="absolute bottom-7 left-1/2 z-20 flex -translate-x-1/2 flex-row gap-2 md:bottom-auto md:left-auto md:right-8 md:top-1/2 md:-translate-y-1/2 md:translate-x-0 md:flex-col lg:right-[62px]">
-                {PERIODOS.map((p) => (
+                {ABAS.map((a) => (
                     <button
-                        key={p}
-                        onClick={() => setPeriodo(p)}
-                        className={`rounded-full px-5 py-2 text-[13px] transition md:min-w-[50px] ${periodo === p
+                        key={a}
+                        onClick={() => setAba(a)}
+                        aria-pressed={aba === a}
+                        className={`rounded-full px-5 py-2 text-[13px] transition md:min-w-[50px] ${aba === a
                                 ? "bg-milk font-semibold text-sea"
                                 : "bg-sea/40 text-milk/70 backdrop-blur-sm hover:bg-sea/60"
                             }`}
                     >
-                        {p}
+                        {a}
                     </button>
                 ))}
             </div>
