@@ -85,3 +85,8 @@ export const LOJAS = [
   { cidade: "Belo Horizonte", endereco: "Av. Cristóvão Colombo, 300 · Savassi", horario: "Seg–Sáb · 11h–20h" },
   { cidade: "Curitiba", endereco: "R. Mateus Leme, 880 · Centro Cívico", horario: "Ter–Sáb · 12h–20h" },
 ];
+
+
+export type Tema = "claro" | "escuro";
+
+export type Aba = "Coleção" | "Lookbook" | "Drop";
