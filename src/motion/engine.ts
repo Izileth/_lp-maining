@@ -1,6 +1,6 @@
-import { gsap, Observer, type Direction } from "./motion/gsap";
-import { contentIn, resetContent } from "./content";
-import type { Splits } from "./split";
+import { gsap, Observer, type Direction } from "./gsap";
+import { contentIn, resetContent } from "../content";
+import type { Splits } from "../split";
 
 export type TransitionCtx = { from: number; to: number; dir: Direction };
 

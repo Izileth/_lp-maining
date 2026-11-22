@@ -1,5 +1,5 @@
 import { gsap } from "./motion/gsap";
-import type { TransitionCtx } from "./engine";
+import type { TransitionCtx } from "./motion/engine";
 
 export type Palette = { ink: string; paper: string };
 

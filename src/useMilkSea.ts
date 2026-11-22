@@ -8,7 +8,7 @@ import {
   createPointerParallax,
   createTicker,
 } from "./effects";
-import { createEngine, type Engine } from "./engine";
+import { createEngine, type Engine } from "./motion/engine";
 import { gsap, useGSAP } from "./motion/gsap";
 import { buildIntro } from "./intro";
 import { createSplits } from "./split";

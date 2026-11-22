@@ -255,7 +255,7 @@ export function Inicio({ go }: SlideProps) {
 
 /* ───────── 2. Coleção ───────── */
 
-export function Colecao(_: SlideProps) {
+export function Colecao() {
     return (
         <Slide
             label="Coleção"
@@ -421,7 +421,7 @@ function Countdown() {
     );
 }
 
-export function Drop(_: SlideProps) {
+export function Drop() {
     const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const form = e.currentTarget;
@@ -500,7 +500,7 @@ export function Drop(_: SlideProps) {
 
 /* ───────── 5. Lojas ───────── */
 
-export function Lojas(_: SlideProps) {
+export function Lojas() {
     return (
         <Slide
             label="Lojas"

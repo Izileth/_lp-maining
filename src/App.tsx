@@ -1,53 +1,56 @@
-import type { ComponentType } from "react";
-import Header from "./Header";
+import { useCallback, useRef, type ComponentType } from "react";
+import { Header, Pagination, Ticker } from "./components/Chrome";
 import { SECOES } from "./data";
+import type { Engine } from "./motion/engine";
+import { useMilksea } from "./motion/useMilksea";
 import { Colecao, Drop, Inicio, Lojas, Lookbook, type SlideProps } from "./slides";
-import { useSlides } from "./useSlides";
 
-// Mesma ordem de SECOES
+// Mesma ordem de SECOES em data.ts
 const SLIDES: ComponentType<SlideProps>[] = [Inicio, Colecao, Lookbook, Drop, Lojas];
+const LABELS = SECOES.map((s) => s.rotulo);
 
 export default function App() {
-  const { index, goTo } = useSlides(SLIDES.length);
-  const tema = SECOES[index].tema;
-  const escuro = tema === "escuro";
+  const root = useRef<HTMLDivElement>(null);
+  const engine = useRef<Engine | null>(null);
+
+  useMilksea(root, engine);
+
+  // Cliques durante uma transição entram na fila (só o último vale)
+  const go = useCallback((i: number) => {
+    engine.current?.go(i, { queue: true });
+  }, []);
+
+  const step = useCallback((dir: 1 | -1) => {
+    const e = engine.current;
+    if (e) e.go(e.index + dir, { queue: true });
+  }, []);
 
   return (
-    <>
-      <Header index={index} goTo={goTo} tema={tema} />
+    <div ref={root} className="mk-paper fixed inset-0 touch-none overflow-hidden">
+      <Header labels={LABELS} onNavigate={go} />
+      <Pagination labels={LABELS} onNavigate={go} onStep={step} />
 
-      {/* Pontos laterais */}
-      <nav
-        aria-label="Slides"
-        className={`fixed right-1.5 top-1/2 z-50 flex -translate-y-1/2 flex-col items-center gap-3 transition-colors duration-700 sm:right-3 lg:right-8 ${escuro ? "text-milk" : "text-sea"
-          }`}
-      >
-        <span className="mb-1 hidden font-heavy text-[10px] tabular-nums lg:block">
-          {String(index + 1).padStart(2, "0")}/{String(SLIDES.length).padStart(2, "0")}
-        </span>
-        {SECOES.map((s, i) => (
-          <button
-            key={s.rotulo}
-            onClick={() => goTo(i)}
-            aria-label={`Ir para ${s.rotulo}`}
-            aria-current={index === i}
-            className={`w-1.5 rounded-full bg-current transition-all duration-500 ${index === i ? "h-7 opacity-100" : "h-1.5 opacity-30 hover:opacity-60"
-              }`}
-          />
+      {/* Palco: acima do ticker (h-10). Slides empilhados; o engine alterna a visibilidade */}
+      <main className="absolute inset-x-0 top-0 bottom-10 overflow-hidden">
+        {SLIDES.map((Slide, i) => (
+          <Slide key={i} go={go} />
         ))}
-      </nav>
-
-      {/* Palco dos slides */}
-      <main className="fixed inset-0 touch-none overflow-hidden bg-milk">
+        {/* Sombra que escurece o slide que está saindo (entre os dois na ordem de empilhamento) */}
         <div
-          className="h-svh transition-transform duration-900 ease-slide will-change-transform"
-          style={{ transform: `translate3d(0, -${index * 100}%, 0)` }}
-        >
-          {SLIDES.map((Slide, i) => (
-            <Slide key={i} active={i === index} goTo={goTo} />
-          ))}
-        </div>
+          data-shade
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-sea opacity-0"
+          style={{ zIndex: 1 }}
+        />
       </main>
-    </>
+
+      <Ticker />
+
+      {/* Anuncia a seção atual para leitores de tela */}
+      <p data-live aria-live="polite" className="sr-only" />
+
+      {/* Cortina da entrada: cobre a tela até as fontes e a foto carregarem */}
+      <div data-curtain aria-hidden className="fixed inset-0 z-[70] bg-sea" />
+    </div>
   );
 }
