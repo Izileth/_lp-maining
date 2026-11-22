@@ -1,4 +1,4 @@
-import { gsap, Observer, type Direction } from "./gsap";
+import { gsap, Observer, type Direction } from "./motion/gsap";
 import { contentIn, resetContent } from "./content";
 import type { Splits } from "./split";
 

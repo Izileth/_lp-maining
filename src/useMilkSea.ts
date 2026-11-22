@@ -9,7 +9,7 @@ import {
   createTicker,
 } from "./effects";
 import { createEngine, type Engine } from "./engine";
-import { gsap, useGSAP } from "./gsap";
+import { gsap, useGSAP } from "./motion/gsap";
 import { buildIntro } from "./intro";
 import { createSplits } from "./split";
 

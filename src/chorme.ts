@@ -1,4 +1,4 @@
-import { gsap } from "./gsap";
+import { gsap } from "./motion/gsap";
 import type { TransitionCtx } from "./engine";
 
 export type Palette = { ink: string; paper: string };
