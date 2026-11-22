@@ -1,4 +1,5 @@
 import { useEffect, useRef, type FormEvent, type ReactNode } from "react";
+import brandIcon from "./assets/icon.svg";
 import {
     DROP_DATE,
     DROP_IMAGEM,
@@ -113,9 +114,11 @@ function Emblem() {
                     </textPath>
                 </text>
             </svg>
-            <span className="absolute grid h-9 w-9 place-items-center rounded-full bg-milk font-script text-xl leading-none font-black italic text-sea">
-                m
-            </span>
+            <img
+                src={brandIcon}
+                alt={`${MARCA} logo`}
+                className="absolute h-9 w-9 rounded-xl object-contain shadow-md"
+            />
         </div>
     );
 }

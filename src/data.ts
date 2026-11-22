@@ -25,7 +25,7 @@ export const SECOES: { rotulo: string; tema: TemaNome }[] = [
 export const HERO = [
   {
     aba: "Coleção",
-    imagem: "/img/hero-colecao.jpg",
+    imagem: "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=1400&q=80",
     selo: "Coleção Inverno 26 disponível",
     texto:
       "Cortes oversized, tecidos pesados e acabamento sob medida. Peças pensadas para durar mais que a estação.",
@@ -34,7 +34,7 @@ export const HERO = [
   },
   {
     aba: "Lookbook",
-    imagem: "/img/hero-lookbook.jpg",
+    imagem: "https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&w=1400&q=80",
     selo: "Lookbook 26 no ar",
     texto:
       "Combinações feitas na rua, com gente de verdade. Veja como a coleção ganha vida fora do estúdio.",
@@ -43,7 +43,7 @@ export const HERO = [
   },
   {
     aba: "Drop",
-    imagem: "/img/hero-drop.jpg",
+    imagem: "https://images.unsplash.com/photo-1508427953056-b00b8d78ebf5?auto=format&fit=crop&w=1400&q=80",
     selo: "Drop 02 · Sexta, 22h",
     texto:
       "Edição limitada, poucas unidades por modelo. Entre na lista para ter acesso antes de todo mundo.",
@@ -63,21 +63,21 @@ export const FRASES = [
 
 // 👇 Coleção
 export const PRODUTOS = [
-  { nome: "Jaqueta Boxy Nylon", preco: "R$ 589", tag: "Novo", imagem: "/img/produto-1.jpg" },
-  { nome: "Moletom Heavy Cinza", preco: "R$ 349", tag: "Best-seller", imagem: "/img/produto-2.jpg" },
-  { nome: "Calça Cargo Wide", preco: "R$ 429", tag: "", imagem: "/img/produto-3.jpg" },
-  { nome: "Camiseta Oversized", preco: "R$ 189", tag: "Novo", imagem: "/img/produto-4.jpg" },
+  { nome: "Jaqueta Boxy Nylon", preco: "R$ 589", tag: "Novo", imagem: "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&w=800&q=80" },
+  { nome: "Moletom Heavy Cinza", preco: "R$ 349", tag: "Best-seller", imagem: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=800&q=80" },
+  { nome: "Calça Cargo Wide", preco: "R$ 429", tag: "", imagem: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80" },
+  { nome: "Camiseta Oversized", preco: "R$ 189", tag: "Novo", imagem: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=800&q=80" },
 ];
 
 // 👇 Lookbook
 export const LOOKS = [
-  { imagem: "/img/look-1.jpg", legenda: "Look 01" },
-  { imagem: "/img/look-2.jpg", legenda: "Look 02" },
-  { imagem: "/img/look-3.jpg", legenda: "Look 03" },
+  { imagem: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1000&q=80", legenda: "Look 01" },
+  { imagem: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=1000&q=80", legenda: "Look 02" },
+  { imagem: "https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?auto=format&fit=crop&w=1000&q=80", legenda: "Look 03" },
 ];
 
 // 👇 Drop
-export const DROP_IMAGEM = "/img/drop.jpg";
+export const DROP_IMAGEM = "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1200&q=80";
 
 export const LOJAS = [
   { cidade: "São Paulo", endereco: "R. Augusta, 1200 · Consolação", horario: "Seg–Sáb · 11h–21h" },

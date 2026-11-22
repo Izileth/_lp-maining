@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import brandIcon from "../assets/icon.svg";
 import { FRASES, MARCA } from "../data";
 import { gsap, useGSAP } from "../motion/gsap";
 
@@ -47,9 +48,11 @@ export function Header({ labels, onNavigate }: HeaderProps) {
                     aria-label={`${MARCA} — ir para o início`}
                     className="flex items-center gap-2"
                 >
-                    <span className="mk-solid grid h-9 w-9 place-items-center rounded-full font-script text-xl leading-none font-black italic">
-                        m
-                    </span>
+                    <img
+                        src={brandIcon}
+                        alt={`${MARCA} logo`}
+                        className="h-9 w-9 rounded-xl object-contain shadow-sm"
+                    />
                     <span className="hidden font-heavy text-sm tracking-tight lg:inline">{MARCA}</span>
                 </button>
 
