@@ -9,16 +9,10 @@ import type { Splits } from "./split";
 */
 
 /** Estado "antes de entrar" de todo o conteúdo de um slide */
-export function resetContent(
-  slide: HTMLElement,
-  splits: Splits,
-  dir: Direction = 1,
-) {
+export function resetContent(slide: HTMLElement, splits: Splits, dir: Direction = 1) {
   splits.hide(slide);
   gsap.set(slide.querySelectorAll("[data-in]"), { autoAlpha: 0, y: 28 * dir });
-  gsap.set(slide.querySelectorAll("[data-media]"), {
-    clipPath: "inset(100% 0% 0% 0%)",
-  });
+  gsap.set(slide.querySelectorAll("[data-media]"), { clipPath: "inset(100% 0% 0% 0%)" });
   gsap.set(slide.querySelectorAll("[data-media] img"), { scale: 1.3 });
 }
 
@@ -28,12 +22,7 @@ export function contentIn(slide: HTMLElement, splits: Splits) {
 
   tl.to(
     slide.querySelectorAll("[data-media]"),
-    {
-      clipPath: "inset(0% 0% 0% 0%)",
-      duration: 1.2,
-      ease: "ms.inOut",
-      stagger: 0.1,
-    },
+    { clipPath: "inset(0% 0% 0% 0%)", duration: 1.2, ease: "ms.inOut", stagger: 0.1 },
     0,
   ).to(
     slide.querySelectorAll("[data-media] img"),

@@ -40,18 +40,14 @@ export function createSplits(root: HTMLElement) {
       onSplit(self) {
         entry.lines = self.lines;
         // Preserva o estado caso o split seja refeito depois de revelado
-        gsap.set(
-          entry.lines,
-          entry.shown ? { yPercent: 0, skewY: 0 } : HIDDEN[entry.kind],
-        );
+        gsap.set(entry.lines, entry.shown ? { yPercent: 0, skewY: 0 } : HIDDEN[entry.kind]);
       },
     });
 
     entries.push(entry);
   });
 
-  const within = (slide: HTMLElement) =>
-    entries.filter((e) => slide.contains(e.el));
+  const within = (slide: HTMLElement) => entries.filter((e) => slide.contains(e.el));
 
   return {
     /** Esconde os títulos de um slide (estado inicial antes da entrada) */
@@ -74,21 +70,11 @@ export function createSplits(root: HTMLElement) {
           t,
         );
         if (e.kind === "heavy") {
-          tl.to(
-            e.lines,
-            { yPercent: 0, duration: 0.85, ease: "power4.out", stagger: 0.07 },
-            t,
-          );
+          tl.to(e.lines, { yPercent: 0, duration: 0.85, ease: "power4.out", stagger: 0.07 }, t);
         } else {
           tl.to(
             e.lines,
-            {
-              yPercent: 0,
-              skewY: 0,
-              duration: 1.6,
-              ease: "expo.out",
-              stagger: 0.12,
-            },
+            { yPercent: 0, skewY: 0, duration: 1.6, ease: "expo.out", stagger: 0.12 },
             t + 0.08,
           );
         }
