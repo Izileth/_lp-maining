@@ -1,17 +1,17 @@
 import type { RefObject } from "react";
-import { PALETA, SECOES } from "./data";
-import { createChrome } from "./chorme";
-import { resetContent } from "./content";
+import { PALETA, SECOES } from "../data";
+import { createChrome } from "../chorme";
+import { resetContent } from "../content";
 import {
   createEmblem,
   createMagnetic,
   createPointerParallax,
   createTicker,
-} from "./effects";
-import { createEngine, type Engine } from "./motion/engine";
-import { gsap, useGSAP } from "./motion/gsap";
-import { buildIntro } from "./intro";
-import { createSplits } from "./split";
+} from "../effects";
+import { createEngine, type Engine } from "../motion/engine";
+import { gsap, useGSAP } from "../motion/gsap";
+import { buildIntro } from "../intro";
+import { createSplits } from "../split";
 
 /** Espera a fonte e a primeira foto, para a entrada não "pular" */
 async function heroReady(root: HTMLElement) {

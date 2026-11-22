@@ -2,7 +2,7 @@ import { useCallback, useRef, type ComponentType } from "react";
 import { Header, Pagination, Ticker } from "./components/Chrome";
 import { SECOES } from "./data";
 import type { Engine } from "./motion/engine";
-import { useMilksea } from "./motion/useMilksea";
+import { useMilksea } from "./hooks/useMilkSea";
 import { Colecao, Drop, Inicio, Lojas, Lookbook, type SlideProps } from "./slides";
 
 // Mesma ordem de SECOES em data.ts
