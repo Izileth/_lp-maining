@@ -8,11 +8,15 @@ import {
     LOOKS,
     MARCA,
     PRODUTOS,
+    type Produto,
 } from "./data";
 import { gsap, useGSAP } from "./motion/gsap";
 import { createTabs, type Tabs } from "./motion/tabs";
 
-export type SlideProps = { go: (i: number) => void };
+export type SlideProps = {
+    go: (i: number) => void;
+    onSelectProduct?: (produto: Produto) => void;
+};
 
 /* ───────── Peças compartilhadas ───────── */
 
@@ -258,7 +262,7 @@ export function Inicio({ go }: SlideProps) {
 
 /* ───────── 2. Coleção ───────── */
 
-export function Colecao() {
+export function Colecao({ onSelectProduct }: SlideProps) {
     return (
         <Slide
             label="Coleção"
@@ -275,29 +279,54 @@ export function Colecao() {
                     </span>
                 </h2>
                 <p data-in className="hidden pb-2 text-sm text-sea/60 sm:block">
-                    {String(PRODUTOS.length).padStart(2, "0")} peças · Frete grátis acima de R$ 399
+                    {String(PRODUTOS.length).padStart(2, "0")} peças · Clique para ver detalhes
                 </p>
             </div>
 
             <div className="grid min-h-0 flex-1 grid-cols-2 grid-rows-2 gap-3 lg:grid-cols-4 lg:grid-rows-1 lg:gap-5">
                 {PRODUTOS.map((p) => (
-                    <article key={p.nome} className="group flex min-h-0 flex-col">
+                    <article
+                        key={p.id || p.nome}
+                        onClick={() => onSelectProduct?.(p)}
+                        onKeyDown={(e) => {
+                            if (e.key === "Enter" || e.key === " ") {
+                                e.preventDefault();
+                                onSelectProduct?.(p);
+                            }
+                        }}
+                        tabIndex={0}
+                        role="button"
+                        aria-label={`Ver detalhes de ${p.nome}`}
+                        className="group flex min-h-0 flex-col cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-sea rounded-2xl"
+                    >
                         <div data-media className="relative min-h-0 flex-1 overflow-hidden rounded-2xl bg-sea/10 lg:rounded-3xl">
                             <Photo src={p.imagem} alt={p.nome} hover />
                             {p.tag && (
-                                <span className="absolute top-3 left-3 rounded-full bg-milk px-3 py-1 text-[11px] font-semibold text-sea">
+                                <span className="absolute top-3 left-3 rounded-full bg-milk px-3 py-1 text-[11px] font-semibold text-sea shadow-sm">
                                     {p.tag}
                                 </span>
                             )}
+
+                            {/* Badge 'Ver detalhes' no hover (desktop) */}
+                            <div className="pointer-events-none absolute inset-0 hidden items-center justify-center bg-sea/20 opacity-0 backdrop-blur-[2px] transition-all duration-300 group-hover:opacity-100 sm:flex">
+                                <span className="rounded-full bg-milk/95 px-4 py-2 text-xs font-bold tracking-wider text-sea uppercase shadow-md transition-transform duration-300 group-hover:scale-105">
+                                    Ver detalhes ✦
+                                </span>
+                            </div>
+
                             <button
-                                aria-label={`Adicionar ${p.nome}`}
-                                className="mk-solid absolute right-3 bottom-3 grid h-9 w-9 place-items-center rounded-full transition-transform duration-300 group-hover:scale-110"
+                                aria-label={`Ver detalhes de ${p.nome}`}
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    onSelectProduct?.(p);
+                                }}
+                                className="mk-solid absolute right-3 bottom-3 grid h-9 w-9 place-items-center rounded-full shadow-md transition-transform duration-300 group-hover:scale-110"
                             >
                                 +
                             </button>
                         </div>
                         <div data-in className="mt-2 flex items-baseline justify-between gap-2">
-                            <h3 className="text-[13px] leading-tight font-semibold sm:text-sm">{p.nome}</h3>
+                            <h3 className="text-[13px] leading-tight font-semibold sm:text-sm group-hover:underline">{p.nome}</h3>
                             <span className="font-script text-base font-black italic">{p.preco}</span>
                         </div>
                     </article>

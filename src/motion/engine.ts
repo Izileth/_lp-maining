@@ -153,7 +153,7 @@ export function createEngine({
     tolerance: 14,
     preventDefault: true,
     allowClicks: true,
-    ignore: "input, textarea, select",
+    ignore: "input, textarea, select, [data-modal-ignore], [data-modal-ignore] *",
     onStopDelay: 0.15,
     onStop: () => {
       armed = true;
